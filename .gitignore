@@ -61,5 +61,6 @@ target/
 
 # Docker
 .env
+.env*
 docker-compose.yml
 prod.docker-compose.yml

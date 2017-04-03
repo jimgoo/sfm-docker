@@ -15,7 +15,10 @@ docker-compose run --rm processing /bin/bash
 docker-compose run --rm processing /bin/bash
 
 # count records in collection (inside above instance)
-find_warcs.py 14b3708d818a4a9aa84d8d3aac9d523c | xargs twitter_stream_warc_iter.py | wc -l
+find_warcs.py 14b | xargs twitter_stream_warc_iter.py | wc -l
+
+# VIP - this will do iteration in parallel (xargs -P nproc)
+find_warcs.py 14b | xargs -P 4 twitter_stream_warc_iter.py | wc -l
 
 # Get ElasticSearch index info
 curl 'localhost:9200/_cat/indices?v'
@@ -38,3 +41,5 @@ cd /mnt/raid0/sfm-data/collection_set
 
 # then count all warcs on file
 twitter_stream_warc_iter.py */*/*/*/*/*/* | wc -l
+
+
